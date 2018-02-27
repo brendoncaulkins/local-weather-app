@@ -6,8 +6,12 @@ import { Observable } from 'rxjs/Observable'
 import { ICurrentWeather } from '../interfaces'
 import 'rxjs/add/operator/map'
 
+export interface IWeatherService {
+  getCurrentWeather(city: string, country: string): Observable<ICurrentWeather>
+}
+
 @Injectable()
-export class WeatherService {
+export class WeatherService implements IWeatherService {
   constructor(private httpClient: HttpClient) {}
 
   getCurrentWeather(city: string, country: string): Observable<ICurrentWeather> {
