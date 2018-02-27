@@ -6,14 +6,19 @@ import { Observable } from 'rxjs/Observable'
 import { ICurrentWeather } from '../interfaces'
 import 'rxjs/add/operator/map'
 
+export interface IWeatherService {
+  getCurrentWeather(city: string, country: string): Observable<ICurrentWeather>
+}
+
 @Injectable()
-export class WeatherService {
+export class WeatherService implements IWeatherService {
   constructor(private httpClient: HttpClient) {}
 
   getCurrentWeather(city: string, country: string): Observable<ICurrentWeather> {
     return this.httpClient
       .get<ICurrentWeatherData>(
         `${environment.baseUrl}api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${environment.appId}`
+        //`api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${environment.appId}`
       )
       .map(data => this.transformToICurrentWeather(data))
   }
