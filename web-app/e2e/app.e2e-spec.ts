@@ -9,6 +9,6 @@ describe('web-app App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo()
-    expect(page.getParagraphText()).toEqual('Hi, I\'m Weather Bot!')
+    expect(page.getParagraphText()).toEqual("Hi, I'm Weather Bot!")
   })
 })
