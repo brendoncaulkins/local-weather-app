@@ -11,19 +11,22 @@
     "test:debug": "ng test --sourcemaps=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "predocker:build": "npm run build -- --prod && npm test -- --single-run && npm run e2e -- --no-delete-output-path",
+
+    "predocker2:build": "npm run build -- --prod && npm test -- --single-run && npm run e2e -- --no-delete-output-path",
     "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo:$npm_package_version",
     "postdocker:build": "npm run docker:tag",
-    "docker:tag": "cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
+    "docker:tag": " cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
     "docker:run": "run-s -c docker:clean docker:runHelper",
-    "docker:runHelper": "cross-conf-env docker run -e NODE_ENV=local --name $npm_package_config_imageName -d -p $npm_package_config_imagePort:80 $npm_package_config_imageRepo",
-    "docker:clean": "cross-conf-env docker rm -f $npm_package_config_imageName",
-    "docker:open:win": "echo Trying to launch on Windows && timeout 2 start http://localhost:$npm_package_config_imagePort%",
-    "predocker:debug": "run-s docker:build docker:run",
-    "docker:debug": "run-s -cs docker:open:win docker:taillogs",
-    "docker:taillogs": "cross-conf-env docker logs -f $npm_package_config_imageName",
+    "docker:runHelper": "cross-conf-env docker run -e NODE_ENV=local --name $npm_package_config_imageName -d -p $npm_package_config_imagePort:3000 $npm_package_config_imageRepo",
     "predocker:publish": "echo Attention! Ensure `docker login` is correct.",
-    "docker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:latest"
+    "docker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:latest",
+    "docker:clean": "cross-conf-env docker rm -f $npm_package_config_imageName",
+    "docker:taillogs": "cross-conf-env docker logs -f $npm_package_config_imageName",
+    "docker:open:win": "echo Trying to launch on Windows && timeout 2 start http://localhost:%npm_package_config_imagePort%",
+    "docker:open:mac": "echo Trying to launch on MacOS && sleep 2 && URL=http://localhost:$npm_package_config_imagePort && open $URL",
+    "predocker:debug": "run-s docker:build docker:run",
+    "predocker2:debug": "run-s -c docker:build docker:run",
+    "docker:debug": "run-s -cs docker:open:win docker:open:mac docker:taillogs"
   },
   "prettier": {
     "printWidth": 120,
@@ -34,7 +37,7 @@
   "config": {
     "imageRepo": "brendoncaulkins/weather_bot",
     "imageName": "weather_bot",
-    "imagePort": "8080"
+    "imagePort": "5002"
   },
   "private": true,
   "dependencies": {

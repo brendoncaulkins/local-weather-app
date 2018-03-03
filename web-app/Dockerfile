@@ -1,6 +1,4 @@
-FROM duluca/minimal-nginx-web-server:latest
+FROM duluca/minimal-node-web-server:8.6.0
 WORKDIR /usr/src/app
 
-RUN mkdir -p /var/www
-
-COPY dist /var/www
+COPY dist public
