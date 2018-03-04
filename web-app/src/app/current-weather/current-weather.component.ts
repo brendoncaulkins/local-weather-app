@@ -15,4 +15,12 @@ export class CurrentWeatherComponent implements OnInit {
   ngOnInit() {
     this.weatherService.getCurrentWeather('Arlington', 'US').subscribe(data => (this.current = data))
   }
+
+  getOrdinal(date: number) {
+    const n = new Date(date).getDate()
+    const ordinals = ['th', 'st', 'nd', 'rd']
+    const index = (n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10
+
+    return n > 0 ? ordinals[index] : ''
+  }
 }

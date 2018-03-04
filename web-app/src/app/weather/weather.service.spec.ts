@@ -8,7 +8,6 @@ describe('WeatherService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [WeatherService],
-      imports: [HttpClientTestingModule],
     })
   })
 
