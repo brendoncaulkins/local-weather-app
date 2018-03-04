@@ -7,8 +7,7 @@ describe('WeatherService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [WeatherService],
-      imports: [HttpClientTestingModule],
+      providers: [WeatherService]
     })
   })
 
