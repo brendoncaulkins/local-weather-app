@@ -12,12 +12,7 @@ import { MaterialModule } from './/material.module'
 
 @NgModule({
   declarations: [AppComponent, CurrentWeatherComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule],
+  imports: [BrowserModule, HttpClientModule, MaterialModule, BrowserAnimationsModule, FlexLayoutModule],
   providers: [WeatherService],
   bootstrap: [AppComponent],
 })
