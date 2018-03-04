@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs/Observable'
+import { map } from 'rxjs/operators'
 
 import { environment } from '../../environments/environment'
-import { Observable } from 'rxjs/Observable'
 import { ICurrentWeather } from '../interfaces'
-import 'rxjs/add/operator/map'
 
 export interface IWeatherService {
   getCurrentWeather(city: string, country: string): Observable<ICurrentWeather>
@@ -20,7 +20,7 @@ export class WeatherService implements IWeatherService {
         `${environment.baseUrl}api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${environment.appId}`
         //`api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${environment.appId}`
       )
-      .map(data => this.transformToICurrentWeather(data))
+      .pipe(map(data => this.transformToICurrentWeather(data)))
   }
 
   private transformToICurrentWeather(data: ICurrentWeatherData): ICurrentWeather {
